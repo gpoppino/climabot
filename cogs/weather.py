@@ -2,6 +2,7 @@ import os
 import pyowm
 import json
 import datetime
+import calendar
 
 from discord.ext import commands
 from datetime import timezone
@@ -113,13 +114,11 @@ class Weather(commands.Cog):
                     break
 
         fc = self.__owm.daily_forecast(city, limit=my_limit)
-        weekday = {0: 'Lun', 1: 'Mar', 2:'Mie', 3:'Jue', 4:'Vie', 5:'Sab', 6:'Dom'}
-
         w_str = ""
         for weather in fc.get_forecast().get_weathers():
             f_date = datetime.datetime.fromtimestamp(weather.get_reference_time(), tz=timezone(timedelta(hours=-3)))
             detailed = weather.get_detailed_status()
-            w_date = weekday[f_date.weekday()] + " " + str(f_date.day)
+            w_date = calendar.day_abbr[f_date.weekday()] + " " + str(f_date.day)
             if date.today() == datetime.date(f_date.year, f_date.month, f_date.day):
                 w_date = "Hoy"
             w_str += w_date + " " + detailed[0].upper() +  detailed[1:] + " " + self.__get_weather_icon(detailed) + " - "
