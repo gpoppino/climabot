@@ -64,11 +64,9 @@ class Weather(commands.Cog):
     async def currentWeather(self, ctx, *args):
 
         city = ' '.join(args)
-        print("CITY == " + city)
         if len(city) == 0:
             city = self.__get_city_for_user(ctx.author.id)
 
-        print(city)
         if city == '':
             await ctx.send('No tenés ciudad definida. Por favor, usá el comando ".setup" para empezar')
             return
@@ -129,10 +127,7 @@ class Weather(commands.Cog):
     async def setup(self, ctx, *args):
 
         users = self.__get_users_from_json()
-        print(users)
         if len(args) == 0:
-            print(ctx.author.id)
-            print(users.keys())
             if str(ctx.author.id) in users.keys():
                 await ctx.send("Tu ciudad actual es: '" + self.__get_city_for_user(ctx.author.id) + "'. Si querés cambiar de ciudad pasame el nombre también.")
             else:
