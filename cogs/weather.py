@@ -94,10 +94,10 @@ class Weather(commands.Cog):
     async def _forecast(self, ctx, *args):
 
         my_limit = 1
-        num = {'un': 1, 'dos': 2, 'tres': 3, 'cuatro': 4, 'cinco': 5, 'seis': 6, '1': 2, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, 'mañana': 1, 'pasado': 2}
+        num = {'un': 1, 'dos': 2, 'tres': 3, 'cuatro': 4, 'cinco': 5, 'seis': 6, '1': 2, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, 'hoy': 1,'mañana': 2, 'pasado': 3}
         when = [x for x in args if x in list(num.keys())]
         if len(when) > 0:
-            if any([True for x in args if x in ['dia', 'día', 'dias', 'días', 'pasado', 'mañana']]):
+            if any([True for x in args if x in ['dia', 'día', 'dias', 'días', 'pasado', 'mañana', 'hoy']]):
                 my_limit = num[when[0]]
 
         city = self.__get_city_for_user(ctx.author.id)
