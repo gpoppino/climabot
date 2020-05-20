@@ -38,6 +38,7 @@ class Weather(commands.Cog):
         j = json.dumps(users)
         with open(self.__jsonFilename, 'w') as f:
             f.write(j)
+            f.close()
 
     def __get_users_from_json(self):
         users = {}
