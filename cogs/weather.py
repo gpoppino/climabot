@@ -6,13 +6,11 @@ import calendar
 import gettext
 import locale
 
-from utils.language import botlanguage
+from utils import language, botlanguage
 from discord.ext import commands
 from datetime import timezone
 from datetime import timedelta
 from datetime import date
-
-gettext.install('climabot', localedir='locales')
 
 class Weather(commands.Cog):
 
@@ -20,6 +18,7 @@ class Weather(commands.Cog):
         self.__bot = bot
         self.__owm = pyowm.OWM(os.getenv('OPENWEATHER_KEY'), language=botlanguage.getLanguage()[:2])
         self.__jsonFilename = "weather_users.json"
+
         botlanguage.addListener(self)
 
     def __get_weather_icon(self, detailed_weather_desc):
