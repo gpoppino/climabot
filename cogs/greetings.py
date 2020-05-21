@@ -15,13 +15,13 @@ class Greetings(commands.Cog):
         if message.author == self.__bot.user:
             return
 
-        if any([True for x in ['hola', 'buenas', 'que tal', 'que onda', 'volví', 'volvi'] if x in message.content.lower()]):
+        if any([True for x in [_('hola'), _('buenas'), _('que tal'), _('que onda'), _('volví'), _('volvi')] if x in message.content.lower()]):
             greetings = [
-                'como va?', 'que haces vieja?', 'hola! tanto tiempo!', 'qué haces loco?', 'buongiorno', 'hola', 'hi', 'todo bien?', 'qué gusto verte!', 'Buenas', 'mucho gusto', 'que tal?', 'que onda?', 'que onda', 'que tal', 'soy un botcito...'
+                _('como va?'), _('que haces vieja?'), _('hola! tanto tiempo!'), _('qué haces loco?'), _('hola'), _('todo bien?'), _('qué gusto verte!'), _('buenas'), _('mucho gusto'), _('que tal?'), _('que onda?'), _('que onda'), _('que tal')
             ]
 
             responses = [
-                'cool', 'joya!', 'bien', 'de una', "buenísimo!", "acá andamos...", 'mira vo'
+                'cool', _('joya!'), _('bien'), _('de una'), _('buenísimo!'), _('acá andamos...')
             ]
 
             channel = message.channel
@@ -33,9 +33,9 @@ class Greetings(commands.Cog):
             msg = await self.__bot.wait_for('message', check=check, timeout=10.0)
             await channel.send(random.choice(responses) + " {.author.name}".format(msg))
 
-        elif any([True for x in ['chau', 'nos vemos', 'me voy', 'me retiro'] if x in message.content.lower()]):
+        elif any([True for x in [_('chau'), _('nos vemos'), _('me voy'), _('me retiro')] if x in message.content.lower()]):
             goodbyes = [
-                'hasta siempre!', 'chau', 'ciao', 'adiós', 'saludos', 'nos vemos vieja', 'hasta luego!', 'cuidate', 'un abrazo grande!', 'hasta pronto', 'hasta la vista, baby'
+                _('hasta siempre!'), _('chau'), _('adiós'), _('saludos'), _('nos vemos vieja'), _('hasta luego!'), _('cuidate'), _('un abrazo grande!'), _('hasta pronto'), _('hasta la vista, baby')
             ]
 
             channel = message.channel

@@ -1,0 +1,301 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2020-05-20 22:42-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+
+
+#: cogs/greetings.py:18
+msgid "volvi"
+msgstr ""
+
+#: cogs/greetings.py:18
+msgid "volví"
+msgstr ""
+
+#: cogs/greetings.py:18 cogs/greetings.py:20
+msgid "buenas"
+msgstr ""
+
+#: cogs/greetings.py:18 cogs/greetings.py:20
+msgid "hola"
+msgstr ""
+
+#: cogs/greetings.py:18 cogs/greetings.py:20
+msgid "que onda"
+msgstr ""
+
+#: cogs/greetings.py:18 cogs/greetings.py:20
+msgid "que tal"
+msgstr ""
+
+#: cogs/greetings.py:20
+msgid "como va?"
+msgstr ""
+
+#: cogs/greetings.py:20
+msgid "hola! tanto tiempo!"
+msgstr ""
+
+#: cogs/greetings.py:20
+msgid "mucho gusto"
+msgstr ""
+
+#: cogs/greetings.py:20
+msgid "que haces vieja?"
+msgstr ""
+
+#: cogs/greetings.py:20
+msgid "que onda?"
+msgstr ""
+
+#: cogs/greetings.py:20
+msgid "que tal?"
+msgstr ""
+
+#: cogs/greetings.py:20
+msgid "qué gusto verte!"
+msgstr ""
+
+#: cogs/greetings.py:20
+msgid "qué haces loco?"
+msgstr ""
+
+#: cogs/greetings.py:20
+msgid "todo bien?"
+msgstr ""
+
+#: cogs/greetings.py:24
+msgid "acá andamos..."
+msgstr ""
+
+#: cogs/greetings.py:24
+msgid "bien"
+msgstr ""
+
+#: cogs/greetings.py:24
+msgid "buenísimo!"
+msgstr ""
+
+#: cogs/greetings.py:24
+msgid "de una"
+msgstr ""
+
+#: cogs/greetings.py:24
+msgid "joya!"
+msgstr ""
+
+#: cogs/greetings.py:36
+msgid "me retiro"
+msgstr ""
+
+#: cogs/greetings.py:36
+msgid "me voy"
+msgstr ""
+
+#: cogs/greetings.py:36
+msgid "nos vemos"
+msgstr ""
+
+#: cogs/greetings.py:36 cogs/greetings.py:38
+msgid "chau"
+msgstr ""
+
+#: cogs/greetings.py:38
+msgid "adiós"
+msgstr ""
+
+#: cogs/greetings.py:38
+msgid "cuidate"
+msgstr ""
+
+#: cogs/greetings.py:38
+msgid "hasta la vista, baby"
+msgstr ""
+
+#: cogs/greetings.py:38
+msgid "hasta luego!"
+msgstr ""
+
+#: cogs/greetings.py:38
+msgid "hasta pronto"
+msgstr ""
+
+#: cogs/greetings.py:38
+msgid "hasta siempre!"
+msgstr ""
+
+#: cogs/greetings.py:38
+msgid "nos vemos vieja"
+msgstr ""
+
+#: cogs/greetings.py:38
+msgid "saludos"
+msgstr ""
+
+#: cogs/greetings.py:38
+msgid "un abrazo grande!"
+msgstr ""
+
+#: cogs/weather.py:25
+msgid "nubes"
+msgstr ""
+
+#: cogs/weather.py:27
+msgid "lluvia"
+msgstr ""
+
+#: cogs/weather.py:29
+msgid "claro"
+msgstr ""
+
+#: cogs/weather.py:31
+msgid "neblina"
+msgstr ""
+
+#: cogs/weather.py:33
+msgid "nieve"
+msgstr ""
+
+#: cogs/weather.py:74
+msgid "No tenés ciudad definida. Por favor, usá el comando \".setup\" para empezar"
+msgstr ""
+
+#: cogs/weather.py:91
+msgid "Humedad"
+msgstr ""
+
+#: cogs/weather.py:91
+msgid "Nubes"
+msgstr ""
+
+#: cogs/weather.py:91
+msgid "Presión atmosférica"
+msgstr ""
+
+#: cogs/weather.py:91
+msgid "Puesta del 🌞"
+msgstr ""
+
+#: cogs/weather.py:91
+msgid "Salida del 🌞"
+msgstr ""
+
+#: cogs/weather.py:91
+msgid "Temperatura actual"
+msgstr ""
+
+#: cogs/weather.py:91
+msgid "Velocidad del viento"
+msgstr ""
+
+#: cogs/weather.py:91
+msgid "máxima"
+msgstr ""
+
+#: cogs/weather.py:91
+msgid "mínima"
+msgstr ""
+
+#: cogs/weather.py:91
+msgid "y"
+msgstr ""
+
+#: cogs/weather.py:98
+msgid "cinco"
+msgstr ""
+
+#: cogs/weather.py:98
+msgid "cuatro"
+msgstr ""
+
+#: cogs/weather.py:98
+msgid "dos"
+msgstr ""
+
+#: cogs/weather.py:98
+msgid "seis"
+msgstr ""
+
+#: cogs/weather.py:98
+msgid "tres"
+msgstr ""
+
+#: cogs/weather.py:98
+msgid "un"
+msgstr ""
+
+#: cogs/weather.py:98 cogs/weather.py:101
+msgid "hoy"
+msgstr ""
+
+#: cogs/weather.py:98 cogs/weather.py:101
+msgid "mañana"
+msgstr ""
+
+#: cogs/weather.py:98 cogs/weather.py:101
+msgid "pasado"
+msgstr ""
+
+#: cogs/weather.py:101
+msgid "dia"
+msgstr ""
+
+#: cogs/weather.py:101
+msgid "dias"
+msgstr ""
+
+#: cogs/weather.py:101
+msgid "día"
+msgstr ""
+
+#: cogs/weather.py:101
+msgid "días"
+msgstr ""
+
+#: cogs/weather.py:106
+msgid "No tenés ciudad asignada! Podés pasarme la ciudad como parámetro o usar el comando \".setup\""
+msgstr ""
+
+#: cogs/weather.py:124
+msgid "Hoy"
+msgstr ""
+
+#: cogs/weather.py:135
+msgid "Si querés cambiar de ciudad pasame el nombre también."
+msgstr ""
+
+#: cogs/weather.py:135
+msgid "Tu ciudad actual es"
+msgstr ""
+
+#: cogs/weather.py:137
+msgid "Tenés que pasarme la ciudad en formato \"nombre de ciudad,pais\". Por ejemplo: sunchales,ar"
+msgstr ""
+
+#: cogs/weather.py:141
+msgid "Sobrescribir? (si/no)"
+msgstr ""
+
+#: cogs/weather.py:141
+msgid "Ya tenés configurada la ciudad"
+msgstr ""
+
+#: cogs/weather.py:149 cogs/weather.py:154 cogs/weather.py:168
+msgid "Actualizado"
+msgstr ""
+
+#: cogs/weather.py:151
+msgid "No toco nada entonces"
+msgstr ""
+
