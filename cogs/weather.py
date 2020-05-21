@@ -144,7 +144,7 @@ class Weather(commands.Cog):
             w_date = calendar.day_abbr[f_date.weekday()] + " " + str(f_date.day)
             if date.today() == datetime.date(f_date.year, f_date.month, f_date.day):
                 w_date = _('Hoy')
-            w_str += w_date + " " + detailed[0].upper() +  detailed[1:] + " " + self.__get_weather_icon(detailed) + " - "
+            w_str += w_date[0].upper() + w_date[1:] + " " + detailed[0].upper() +  detailed[1:] + " " + self.__get_weather_icon(detailed) + " - "
 
         await ctx.send(w_str[:-2])
 
