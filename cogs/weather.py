@@ -6,6 +6,7 @@ import calendar
 import gettext
 import locale
 
+from utils.language import botlanguage
 from discord.ext import commands
 from datetime import timezone
 from datetime import timedelta
@@ -17,10 +18,9 @@ class Weather(commands.Cog):
 
     def __init__(self, bot):
         self.__bot = bot
-        self.__owm = pyowm.OWM(os.getenv('OPENWEATHER_KEY'), language=os.getenv('LANG')[:2])
+        self.__owm = pyowm.OWM(os.getenv('OPENWEATHER_KEY'), language=botlanguage.getLanguage()[:2])
         self.__jsonFilename = "weather_users.json"
-
-        self.__setLang(os.getenv('LANG')[:5])
+        botlanguage.addListener(self)
 
     def __get_weather_icon(self, detailed_weather_desc):
 
@@ -66,24 +66,8 @@ class Weather(commands.Cog):
             city = users[_id]
         return city
 
-    def __getSupportedLanguages(self):
-        dirs = [ x for x in os.listdir('locales') if os.path.isdir(os.path.join('locales', x)) ]
-        return dirs
-
-    def __setLang(self, lang):
-
-        languages = [ x.lower() for x in self.__getSupportedLanguages() ]
-        if lang.lower() in languages:
-            lang = lang[:2] + '_' + lang[-2:].upper()
-            t = gettext.translation('climabot', localedir='locales', languages=[lang])
-            t.install()
-
-            self.__owm = pyowm.OWM(os.getenv('OPENWEATHER_KEY'), language=lang[:2])
-
-            locale.setlocale(locale.LC_ALL, (lang, locale.getpreferredencoding()))
-
-            return True
-        return False
+    def setLanguage(self, lang):
+        self.__owm = pyowm.OWM(os.getenv('OPENWEATHER_KEY'), language=lang[:2])
 
     @commands.command(name="tiempo")
     async def weather(self, ctx, *args):
@@ -174,13 +158,3 @@ class Weather(commands.Cog):
         else:
             self.__add_user_to_json(ctx.author.id, args)
             await ctx.send(_('Actualizado'))
-
-    @commands.command("idioma")
-    async def lang(self, ctx, *args):
-        if len(args) == 0:
-            return
-
-        if self.__setLang(args[0]):
-            await ctx.send(_('Actualizado'))
-        else:
-            await ctx.send(_('Idioma no encontrado'))
