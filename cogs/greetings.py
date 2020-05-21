@@ -17,7 +17,8 @@ class Greetings(commands.Cog):
 
         if any([True for x in [_('hola'), _('buenas'), _('que tal'), _('que onda'), _('volví'), _('volvi')] if x in message.content.lower()]):
             greetings = [
-                _('como va?'), _('que haces vieja?'), _('hola! tanto tiempo!'), _('qué haces loco?'), _('hola'), _('todo bien?'), _('qué gusto verte!'), _('buenas'), _('mucho gusto'), _('que tal?'), _('que onda?'), _('que onda'), _('que tal')
+                _('como va?'), _('que haces vieja?'), _('hola! tanto tiempo!'), _('qué haces loco?'), _('hola'), _('todo bien?'),
+                _('qué gusto verte!'), _('buenas'), _('mucho gusto'), _('que tal?'), _('que onda?'), _('que onda'), _('que tal')
             ]
 
             responses = [
@@ -35,7 +36,8 @@ class Greetings(commands.Cog):
 
         elif any([True for x in [_('chau'), _('nos vemos'), _('me voy'), _('me retiro')] if x in message.content.lower()]):
             goodbyes = [
-                _('hasta siempre!'), _('chau'), _('adiós'), _('saludos'), _('nos vemos vieja'), _('hasta luego!'), _('cuidate'), _('un abrazo grande!'), _('hasta pronto'), _('hasta la vista, baby')
+                _('hasta siempre!'), _('chau'), _('adiós'), _('saludos'), _('nos vemos vieja'), _('hasta luego!'), _('cuidate'),
+                _('un abrazo grande!'), _('hasta pronto'), _('hasta la vista, baby')
             ]
 
             channel = message.channel
