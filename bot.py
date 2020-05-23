@@ -3,10 +3,12 @@
 import os
 
 from utils.language import botlanguage
+from utils.botlogging import init_logging
 from discord.ext import commands
 from dotenv import load_dotenv
 from cogs import *
 
+init_logging()
 load_dotenv()
 
 bot = commands.Bot(command_prefix='.')

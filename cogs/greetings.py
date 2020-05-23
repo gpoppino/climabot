@@ -1,14 +1,16 @@
 import random
+import logging
 
 from discord.ext import commands
 
 class Greetings(commands.Cog):
     def __init__(self, bot):
         self.__bot = bot
+        self.__logger = logging.getLogger(__name__)
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f'{self.__bot.user} has connected to Discord!')
+        self.__logger.info(f'{self.__bot.user} has connected to Discord!')
 
     @commands.Cog.listener()
     async def on_message(self, message):
@@ -46,9 +48,8 @@ class Greetings(commands.Cog):
 
     @commands.Cog.listener()
     async def on_error(self, event, *args, **kwargs):
-        with open('err.log', 'a') as f:
-            if event == 'on_message':
-                f.write(f'Unhandled message: {args[0]}\n')
-            else:
-                raise
+        if event == 'on_message':
+            self.__logger.error(f'Unhandled message: {args[0]}')
+        else:
+            raise
 
