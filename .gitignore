@@ -137,3 +137,6 @@ dmypy.json
 
 # Local History for Visual Studio Code
 .history/
+
+# Bot's database
+*.json
