@@ -97,12 +97,14 @@ class Weather(commands.Cog):
         wind_speed = w.wind()['speed']
         clouds = w.clouds
         pressure = w.pressure['press']
+        sunrise_minute = "0" + str(sunrise.minute) if len(str(sunrise.minute)) == 1 else str(sunrise.minute)
+        sunset_minute = "0" + str(sunset.minute) if len(str(sunset.minute)) == 1 else str(sunset.minute)
 
         await ctx.send(detailed[0].upper() + detailed[1:] + " - " + _('Temperatura actual') + " " + str(temp) + "°C, " +
                         _('máxima') + "  " + str(temp_max) + "°C, " + _('mínima') + "  " + str(temp_min) + "°C - " +
                         _('Humedad') + " " + str(humidity) + "% - " + _('Velocidad del viento') + " " + str(wind_speed) +
-                        " m/s - " + _('Salida del 🌞') + "  " + str(sunrise.hour) + ":" + str(sunrise.minute) + " " +
-                        _('y')  +  " " + _('Puesta del 🌞') + "  " + str(sunset.hour) + ":" + str(sunset.minute) +
+                        " m/s - " + _('Salida del 🌞') + "  " + str(sunrise.hour) + ":" + sunrise_minute + " " +
+                        _('y')  +  " " + _('Puesta del 🌞') + "  " + str(sunset.hour) + ":" + sunset_minute +
                         " - " + _('Presión atmosférica') + "  " + str(pressure) + " hpa - " + _('Nubes') + " " + str(clouds) + "%")
 
 
