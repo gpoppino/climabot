@@ -6,6 +6,7 @@ import calendar
 import gettext
 import locale
 
+from pyowm.utils.config import get_config_from
 from utils import language, botlanguage
 from discord.ext import commands
 from datetime import timezone
@@ -16,7 +17,8 @@ class Weather(commands.Cog):
 
     def __init__(self, bot):
         self.__bot = bot
-        self.__owm = pyowm.OWM(os.getenv('OPENWEATHER_KEY'), language=botlanguage.getLanguage()[:2])
+        config_dict = get_config_from('conf/pyowm.conf')
+        self.__owm = pyowm.OWM(os.getenv('OPENWEATHER_KEY'), config_dict)
         self.__jsonFilename = "weather_users.json"
 
         botlanguage.addListener(self)
@@ -24,8 +26,10 @@ class Weather(commands.Cog):
     def __get_weather_icon(self, detailed_weather_desc):
 
         w_icon = ""
-        if _("nubes") in detailed_weather_desc:
+        if _("nubes rotas") in detailed_weather_desc:
             w_icon = "⛅️"
+        elif _("nubes") in detailed_weather_desc:
+            w_icon = "☁️"
         elif _("lluvia") in detailed_weather_desc:
             w_icon = "🌧"
         elif _("claro") in detailed_weather_desc:
@@ -66,7 +70,7 @@ class Weather(commands.Cog):
         return city
 
     def setLanguage(self, lang):
-        self.__owm = pyowm.OWM(os.getenv('OPENWEATHER_KEY'), language=lang[:2])
+        self.__owm.configuration["language"] = lang[:2]
 
     @commands.command(name="tiempo")
     async def weather(self, ctx, *args):
@@ -79,19 +83,20 @@ class Weather(commands.Cog):
             await ctx.send(_('No tenés ciudad definida. Por favor, usá el comando ".setup" para empezar'))
             return
 
-        observation = self.__owm.weather_at_place(city)
-        w = observation.get_weather()
+        mgr = self.__owm.weather_manager()
+        observation = mgr.weather_at_place(city)
+        w = observation.weather
 
-        detailed = w.get_detailed_status()
-        sunrise = datetime.datetime.fromtimestamp(w.get_sunrise_time(), tz=timezone(timedelta(hours=-3)))
-        sunset = datetime.datetime.fromtimestamp(w.get_sunset_time(), tz=timezone(timedelta(hours=-3)))
-        temp = w.get_temperature('celsius')['temp']
-        temp_max = w.get_temperature('celsius')['temp_max']
-        temp_min = w.get_temperature('celsius')['temp_min']
-        humidity = w.get_humidity()
-        wind_speed = w.get_wind()['speed']
-        clouds = w.get_clouds()
-        pressure = w.get_pressure()['press']
+        detailed = w.detailed_status
+        sunrise = datetime.datetime.fromtimestamp(w.sunrise_time(), tz=timezone(timedelta(hours=-3)))
+        sunset = datetime.datetime.fromtimestamp(w.sunset_time(), tz=timezone(timedelta(hours=-3)))
+        temp = w.temperature('celsius')['temp']
+        temp_max = w.temperature('celsius')['temp_max']
+        temp_min = w.temperature('celsius')['temp_min']
+        humidity = w.humidity
+        wind_speed = w.wind()['speed']
+        clouds = w.clouds
+        pressure = w.pressure['press']
 
         await ctx.send(detailed[0].upper() + detailed[1:] + " - " + _('Temperatura actual') + " " + str(temp) + "°C, " +
                         _('máxima') + "  " + str(temp_max) + "°C, " + _('mínima') + "  " + str(temp_min) + "°C - " +
@@ -125,11 +130,12 @@ class Weather(commands.Cog):
                     city = ' '.join(city)
                     break
 
-        fc = self.__owm.daily_forecast(city, limit=my_limit)
+        mgr = self.__owm.weather_manager()
+        fc = mgr.forecast_at_place(city, 'daily').forecast
         w_str = ""
-        for weather in fc.get_forecast().get_weathers():
-            f_date = datetime.datetime.fromtimestamp(weather.get_reference_time(), tz=timezone(timedelta(hours=-3)))
-            detailed = weather.get_detailed_status()
+        for weather in fc:
+            f_date = datetime.datetime.fromtimestamp(weather.reference_time(), tz=timezone(timedelta(hours=-3)))
+            detailed = weather.detailed_status
             w_date = calendar.day_abbr[f_date.weekday()] + " " + str(f_date.day)
             if date.today() == datetime.date(f_date.year, f_date.month, f_date.day):
                 w_date = _('Hoy')

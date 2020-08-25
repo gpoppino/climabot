@@ -1,4 +1,4 @@
-discord
-pyowm
+discord.py
+pyowm>=3
 python-dotenv
 pyyaml
