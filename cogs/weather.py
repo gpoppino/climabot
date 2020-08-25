@@ -109,14 +109,6 @@ class Weather(commands.Cog):
     @commands.command(name="pronostico")
     async def forecast(self, ctx, *args):
 
-        my_limit = 1
-        num = {_('un'): 1, _('dos'): 2, _('tres'): 3, _('cuatro'): 4, _('cinco'): 5, _('seis'): 6, '1': 2, '2': 2, '3': 3, '4': 4,
-                '5': 5, '6': 6, _('hoy'): 1, _('mañana'): 2, _('pasado'): 3}
-        when = [x for x in args if x in list(num.keys())]
-        if len(when) > 0:
-            if any([True for x in args if x in [_('dia'), _('día'), _('dias'), _('días'), _('pasado'), _('mañana'), _('hoy')]]):
-                my_limit = num[when[0]]
-
         city = self.__get_city_for_user(ctx.author.id)
         if len(city) == 0 and len(args) == 0:
             await ctx.send(_('No tenés ciudad asignada! Podés pasarme la ciudad como parámetro o usar el comando ".setup"'))
