@@ -69,6 +69,19 @@ class Weather(commands.Cog):
             city = users[_id]
         return city
 
+    def __get_pop(self, weather):
+
+        if weather.precipitation_probability == None:
+            return ""
+
+        precipitation_probability = 100 * weather.precipitation_probability
+        if _("lluvia") in weather.detailed_status:
+            pop = "(" + str(int(precipitation_probability)) + "%)"
+        else:
+            pop = ""
+
+        return pop
+
     def setLanguage(self, lang):
         self.__owm.configuration["language"] = lang[:2]
 
@@ -100,7 +113,7 @@ class Weather(commands.Cog):
         sunrise_minute = "0" + str(sunrise.minute) if len(str(sunrise.minute)) == 1 else str(sunrise.minute)
         sunset_minute = "0" + str(sunset.minute) if len(str(sunset.minute)) == 1 else str(sunset.minute)
 
-        await ctx.send(detailed[0].upper() + detailed[1:] + " - " + _('Temperatura actual') + " " + str(temp) + "°C, " +
+        await ctx.send(detailed[0].upper() + detailed[1:] + " " + self.__get_pop(w) + " - " + _('Temperatura actual') + " " + str(temp) + "°C, " +
                         _('máxima') + "  " + str(temp_max) + "°C, " + _('mínima') + "  " + str(temp_min) + "°C - " +
                         _('Humedad') + " " + str(humidity) + "% - " + _('Velocidad del viento') + " " + str(wind_speed) +
                         " m/s - " + _('Salida del 🌞') + "  " + str(sunrise.hour) + ":" + sunrise_minute + " " +
@@ -127,13 +140,15 @@ class Weather(commands.Cog):
         mgr = self.__owm.weather_manager()
         fc = mgr.forecast_at_place(city, 'daily').forecast
         w_str = ""
+        fc.actualize()
         for weather in fc:
             f_date = datetime.datetime.fromtimestamp(weather.reference_time(), tz=timezone(timedelta(hours=-3)))
             detailed = weather.detailed_status
             w_date = calendar.day_abbr[f_date.weekday()] + " " + str(f_date.day)
             if date.today() == datetime.date(f_date.year, f_date.month, f_date.day):
                 w_date = _('Hoy')
-            w_str += w_date[0].upper() + w_date[1:] + " " + detailed[0].upper() +  detailed[1:] + " " + self.__get_weather_icon(detailed) + " - "
+
+            w_str += w_date[0].upper() + w_date[1:] + " " + detailed[0].upper() +  detailed[1:] + " " + self.__get_weather_icon(detailed) + " " + self.__get_pop(weather) + " - "
 
         await ctx.send(w_str[:-2])
 
