@@ -76,13 +76,13 @@ class Weather(commands.Cog):
     def __get_pop(self, weather):
 
         if weather.precipitation_probability == None:
-            return ""
+            return 0
 
         precipitation_probability = 100 * weather.precipitation_probability
         if _("lluvia") in weather.detailed_status:
-            pop = "(" + str(int(precipitation_probability)) + "%)"
+            pop = int(precipitation_probability)
         else:
-            pop = ""
+            pop = 0
 
         return pop
 
@@ -125,7 +125,7 @@ class Weather(commands.Cog):
         sunrise_minute = "0" + str(sunrise.minute) if len(str(sunrise.minute)) == 1 else str(sunrise.minute)
         sunset_minute = "0" + str(sunset.minute) if len(str(sunset.minute)) == 1 else str(sunset.minute)
 
-        await ctx.send(detailed[0].upper() + detailed[1:] + " " + self.__get_pop(w) + " - " + _('Temperatura actual') + " " + str(temp) + "°C, " +
+        await ctx.send(detailed[0].upper() + detailed[1:] + " " + "(" + str(self.__get_pop(w)) + "%)" + " - " + _('Temperatura actual') + " " + str(temp) + "°C, " +
                         _('máxima') + "  " + str(temp_max) + "°C, " + _('mínima') + "  " + str(temp_min) + "°C - " +
                         _('Humedad') + " " + str(humidity) + "% - " + _('Velocidad del viento') + " " + str(wind_speed) +
                         " m/s - " + _('Salida del 🌞') + "  " + str(sunrise.hour) + ":" + sunrise_minute + " " +
@@ -153,12 +153,13 @@ class Weather(commands.Cog):
             if date.today() == datetime.date(f_date.year, f_date.month, f_date.day):
                 w_date = _('Hoy')
 
-            w_str += w_date[0].upper() + w_date[1:] + " " + detailed[0].upper() +  detailed[1:] + " " + self.__get_weather_icon(detailed) + " " + self.__get_pop(weather) + " - "
+            w_str += w_date[0].upper() + w_date[1:] + " " + detailed[0].upper() +  detailed[1:] + " " + self.__get_weather_icon(detailed) + " " + "(" + str(self.__get_pop(weather)) + "%)" + " - "
 
         await ctx.send(w_str[:-2])
 
-    @commands.command(name="temp")
-    async def temperature_forecast(self, ctx, *args):
+
+    @commands.command(name="3h")
+    async def three_hour_forecast(self, ctx, *args):
 
         city = ' '.join(args)
         if len(city) == 0:
@@ -168,28 +169,31 @@ class Weather(commands.Cog):
             await ctx.send(_('No tenés ciudad definida. Por favor, usá el comando ".setup" para empezar'))
             return
 
-        time_data = []
-        temp_data = []
         sample = 0
+        time_data, temp_data, pop_data = [], [], []
         fc = self.__get_forecast_at_place(city, '3h')
         for weather in fc:
-            hour = datetime.datetime.fromtimestamp(weather.reference_time(), tz=timezone(timedelta(hours=-3)))
-            time_data.append(hour)
+            date_and_time = datetime.datetime.fromtimestamp(weather.reference_time(), tz=timezone(timedelta(hours=-3)))
+            time_data.append(date_and_time)
             temp_data.append(weather.temperature('celsius')['temp'])
+            pop_data.append(self.__get_pop(weather))
 
-            if sample >= (24 / 3) + 2:
+            if sample >= (24 / 3):
                 break
             sample += 1
 
-        fig = plt.figure()
-        ax = fig.add_subplot(1, 1, 1)
-        ax.plot(time_data, temp_data)
-        plt.xticks(rotation=45, ha='right')
-        plt.subplots_adjust(bottom=0.30)
-        plt.title(_("Temperatura cada 3 horas en ") + city[0].upper() + city[1:-3])
-        plt.xlabel(_("Fecha y Hora"))
-        plt.ylabel(_("Temperatura (°C)"))
-
+        fig, ax = plt.subplots(2, 1)
+        ax[0].plot(time_data, temp_data)
+        ax[0].grid(True)
+        ax[0].set_ylabel(_("Temperatura (°C)"))
+        ax[1].plot(time_data, pop_data)
+        ax[1].fill_between(time_data, pop_data)
+        ax[1].grid(True)
+        ax[1].set_ylabel(_("Probabilidad de lluvia (%)"))
+        ax[1].set_xlabel(_("Fecha y Hora"))
+        ax[1].set_ylim(0, 100)
+        fig.suptitle(_("Cada 3 horas en ") + city[0].upper() + city[1:-3])
+        fig.autofmt_xdate()
         plt.savefig("temp.png", format="png")
 
         embed = discord.Embed()
