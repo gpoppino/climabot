@@ -9,7 +9,7 @@ import locale
 
 from matplotlib import pyplot as plt
 from pyowm.utils.config import get_config_from
-from utils import language, botlanguage
+from utils import botlanguage
 from discord.ext import commands
 from datetime import timezone
 from datetime import timedelta
@@ -177,7 +177,6 @@ class Weather(commands.Cog):
             time_data.append(hour)
             temp_data.append(weather.temperature('celsius')['temp'])
 
-            print(hour, weather.temperature('celsius')['temp'])
             if sample >= (24 / 3) + 2:
                 break
             sample += 1
