@@ -64,11 +64,13 @@ class Weather(commands.Cog):
         return users
 
     def __get_city_for_user(self, id):
+
         _id = str(id)
         users = self.__get_users_from_json()
         city = ''
         if _id in users.keys():
             city = users[_id]
+
         return city
 
     def __get_pop(self, weather):
@@ -134,18 +136,13 @@ class Weather(commands.Cog):
     @commands.command(name="pronostico")
     async def forecast(self, ctx, *args):
 
-        city = self.__get_city_for_user(ctx.author.id)
-        if len(city) == 0 and len(args) == 0:
-            await ctx.send(_('No tenés ciudad asignada! Podés pasarme la ciudad como parámetro o usar el comando ".setup"'))
-            return
+        city = ' '.join(args)
+        if len(city) == 0:
+            city = self.__get_city_for_user(ctx.author.id)
 
-        if len(city) == 0 and len(args) != 0:
-            city = []
-            for x in args:
-                city.append(x)
-                if x.find(',') != -1:
-                    city = ' '.join(city)
-                    break
+        if city == '':
+            await ctx.send(_('No tenés ciudad definida. Por favor, usá el comando ".setup" para empezar'))
+            return
 
         fc = self.__get_forecast_at_place(city, 'daily')
         w_str = ""
@@ -163,18 +160,13 @@ class Weather(commands.Cog):
     @commands.command(name="temp")
     async def temperature_forecast(self, ctx, *args):
 
-        city = self.__get_city_for_user(ctx.author.id)
-        if len(city) == 0 and len(args) == 0:
-            await ctx.send(_('No tenés ciudad asignada! Podés pasarme la ciudad como parámetro o usar el comando ".setup"'))
-            return
+        city = ' '.join(args)
+        if len(city) == 0:
+            city = self.__get_city_for_user(ctx.author.id)
 
-        if len(city) == 0 and len(args) != 0:
-            city = []
-            for x in args:
-                city.append(x)
-                if x.find(',') != -1:
-                    city = ' '.join(city)
-                    break
+        if city == '':
+            await ctx.send(_('No tenés ciudad definida. Por favor, usá el comando ".setup" para empezar'))
+            return
 
         time_data = []
         temp_data = []
