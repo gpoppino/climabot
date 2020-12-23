@@ -84,6 +84,14 @@ class Weather(commands.Cog):
 
         return pop
 
+    def __get_forecast_at_place(self, city, type):
+
+        mgr = self.__owm.weather_manager()
+        fc = mgr.forecast_at_place(city, type).forecast
+        fc.actualize()
+
+        return fc
+
     def setLanguage(self, lang):
         self.__owm.configuration["language"] = lang[:2]
 
@@ -139,10 +147,8 @@ class Weather(commands.Cog):
                     city = ' '.join(city)
                     break
 
-        mgr = self.__owm.weather_manager()
-        fc = mgr.forecast_at_place(city, 'daily').forecast
+        fc = self.__get_forecast_at_place(city, 'daily')
         w_str = ""
-        fc.actualize()
         for weather in fc:
             f_date = datetime.datetime.fromtimestamp(weather.reference_time(), tz=timezone(timedelta(hours=-3)))
             detailed = weather.detailed_status
@@ -170,12 +176,10 @@ class Weather(commands.Cog):
                     city = ' '.join(city)
                     break
 
-        mgr = self.__owm.weather_manager()
-        fc = mgr.forecast_at_place(city, '3h').forecast
-        fc.actualize()
         time_data = []
         temp_data = []
         sample = 0
+        fc = self.__get_forecast_at_place(city, '3h')
         for weather in fc:
             hour = datetime.datetime.fromtimestamp(weather.reference_time(), tz=timezone(timedelta(hours=-3)))
             time_data.append(hour)
