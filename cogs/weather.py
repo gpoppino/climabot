@@ -3,9 +3,11 @@ import pyowm
 import json
 import datetime
 import calendar
+import discord
 import gettext
 import locale
 
+from matplotlib import pyplot as plt
 from pyowm.utils.config import get_config_from
 from utils import language, botlanguage
 from discord.ext import commands
@@ -151,6 +153,54 @@ class Weather(commands.Cog):
             w_str += w_date[0].upper() + w_date[1:] + " " + detailed[0].upper() +  detailed[1:] + " " + self.__get_weather_icon(detailed) + " " + self.__get_pop(weather) + " - "
 
         await ctx.send(w_str[:-2])
+
+    @commands.command(name="temp")
+    async def temperature_forecast(self, ctx, *args):
+
+        city = self.__get_city_for_user(ctx.author.id)
+        if len(city) == 0 and len(args) == 0:
+            await ctx.send(_('No tenés ciudad asignada! Podés pasarme la ciudad como parámetro o usar el comando ".setup"'))
+            return
+
+        if len(city) == 0 and len(args) != 0:
+            city = []
+            for x in args:
+                city.append(x)
+                if x.find(',') != -1:
+                    city = ' '.join(city)
+                    break
+
+        mgr = self.__owm.weather_manager()
+        fc = mgr.forecast_at_place(city, '3h').forecast
+        fc.actualize()
+        time_data = []
+        temp_data = []
+        sample = 0
+        for weather in fc:
+            hour = datetime.datetime.fromtimestamp(weather.reference_time(), tz=timezone(timedelta(hours=-3)))
+            time_data.append(hour)
+            temp_data.append(weather.temperature('celsius')['temp'])
+
+            print(hour, weather.temperature('celsius')['temp'])
+            if sample >= (24 / 3) + 2:
+                break
+            sample += 1
+
+        fig = plt.figure()
+        ax = fig.add_subplot(1, 1, 1)
+        ax.plot(time_data, temp_data)
+        plt.xticks(rotation=45, ha='right')
+        plt.subplots_adjust(bottom=0.30)
+        plt.title(_("Temperatura cada 3 horas en ") + city[0].upper() + city[1:-3])
+        plt.xlabel(_("Fecha y Hora"))
+        plt.ylabel(_("Temperatura (°C)"))
+
+        plt.savefig("temp.png", format="png")
+
+        embed = discord.Embed()
+        file = discord.File("temp.png", filename="temp.png")
+        embed.set_image(url="attachment://temp.png")
+        await ctx.send(file=file, embed=embed)
 
     @commands.command()
     async def setup(self, ctx, *args):
