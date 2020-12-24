@@ -78,13 +78,7 @@ class Weather(commands.Cog):
         if weather.precipitation_probability == None:
             return 0
 
-        precipitation_probability = 100 * weather.precipitation_probability
-        if _("lluvia") in weather.detailed_status:
-            pop = int(precipitation_probability)
-        else:
-            pop = 0
-
-        return pop
+        return int(100 * weather.precipitation_probability)
 
     def __get_forecast_at_place(self, city, type):
 
