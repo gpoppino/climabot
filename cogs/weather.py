@@ -186,7 +186,7 @@ class Weather(commands.Cog):
         ax[1].set_ylabel(_("Probabilidad de lluvia (%)"))
         ax[1].set_xlabel(_("Fecha y Hora"))
         ax[1].set_ylim(0, 100)
-        fig.suptitle(_("Cada 3 horas en ") + city[0].upper() + city[1:-3])
+        fig.suptitle(_("Pronóstico cada 3 horas en ") + city[0].upper() + city[1:-3])
         fig.autofmt_xdate()
         plt.savefig("temp.png", format="png")
 
