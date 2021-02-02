@@ -140,3 +140,12 @@ dmypy.json
 
 # Bot's database
 *.json
+
+# Logs
+*.log*
+
+# Images
+*.png
+
+# nohup output file
+*.out
