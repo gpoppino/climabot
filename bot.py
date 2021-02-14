@@ -17,6 +17,7 @@ bot.add_cog(greetings.Greetings(bot))
 bot.add_cog(weather.Weather(bot))
 bot.add_cog(language.Language(bot))
 bot.add_cog(cryptocoins.CryptoCoins())
+bot.add_cog(spotify.Spotify(bot))
 
 botlanguage.install()
 

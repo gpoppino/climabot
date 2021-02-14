@@ -3,3 +3,4 @@ pyowm>=3
 python-dotenv
 pyyaml
 requests
+spotipy
