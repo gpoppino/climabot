@@ -17,4 +17,4 @@ And replace with your services tokens.
 
 ## How to run the bot
 
-Run the following command: `python3 bot.py`
+After you uncompress the zip file, you can run the bot with `python3 climabot-master` (or the directory name that contains the bot's files) or you can also `cd` into the bot's base directory and run `python3 .`
