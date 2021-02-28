@@ -56,4 +56,3 @@ class Spotify(commands.Cog):
             await self.__show_album_info(album, message)
         else:
             await message.channel.send(_("No encontrado!"))
-

@@ -1,11 +1,9 @@
-import os
-import gettext
-import locale
+import os, gettext, locale, sys, pathlib
 
 class Language:
 
     def __init__(self):
-        self.__localeDir = 'locales'
+        self.__localeDir = str(pathlib.Path.cwd()) + '/' + sys.argv[0] + '/climabot/locales'
         self.__lang = ''
         self.__listeners = []
 
