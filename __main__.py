@@ -2,11 +2,11 @@
 
 import os
 
-from utils.language import botlanguage
-from utils.botlogging import init_logging
+from climabot.utils.language import botlanguage
+from climabot.utils.botlogging import init_logging
 from discord.ext import commands
 from dotenv import load_dotenv
-from cogs import *
+from climabot.cogs import *
 
 init_logging()
 load_dotenv()

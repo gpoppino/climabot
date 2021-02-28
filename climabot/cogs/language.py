@@ -2,7 +2,7 @@ import os
 import gettext
 import locale
 
-from utils.language import botlanguage
+from climabot.utils.language import botlanguage
 from discord.ext import commands
 
 class Language(commands.Cog):
