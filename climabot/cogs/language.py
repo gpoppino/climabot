@@ -10,7 +10,7 @@ class Language(commands.Cog):
     def __init__(self, bot):
         self.__bot = bot
 
-    @commands.command("idioma")
+    @commands.command(name="idioma", help="Cambia el idioma del bot")
     async def lang(self, ctx, *args):
         if len(args) == 0:
             return
