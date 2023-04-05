@@ -90,7 +90,7 @@ class Weather(commands.Cog):
     def setLanguage(self, lang):
         self.__owm.configuration["language"] = lang[:2]
 
-    @commands.command(name="tiempo")
+    @commands.command(name="tiempo", help="Muestra diferentes variables relacionadas al clima actual del día para la ciudad seleccionada")
     async def weather(self, ctx, *args):
 
         city = ' '.join(args)
@@ -126,7 +126,7 @@ class Weather(commands.Cog):
                         " - " + _('Presión atmosférica') + "  " + str(pressure) + " hpa - " + _('Nubes') + " " + str(clouds) + "%")
 
 
-    @commands.command(name="pronostico")
+    @commands.command(name="pronostico", help="Muestra el pronostico del tiempo de los próximos 5 días")
     async def forecast(self, ctx, *args):
 
         city = ' '.join(args)
@@ -151,7 +151,7 @@ class Weather(commands.Cog):
         await ctx.send(w_str[:-2])
 
 
-    @commands.command(name="3h")
+    @commands.command(name="3h", help="Muestra el pronóstico de la temperatura y probabilidad de lluvia cada 3 horas por las próximas 24 horas")
     async def three_hour_forecast(self, ctx, *args):
 
         city = ' '.join(args)
@@ -194,7 +194,7 @@ class Weather(commands.Cog):
         embed.set_image(url="attachment://temp.png")
         await ctx.send(file=file, embed=embed)
 
-    @commands.command()
+    @commands.command(help="Permite configurar la ciudad y país para el usuario")
     async def setup(self, ctx, *args):
 
         users = self.__get_users_from_json()
