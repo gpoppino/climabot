@@ -1,0 +1,26 @@
+import os
+import openai
+
+from discord.ext import commands
+
+
+class OpenAIGPT(commands.Cog):
+
+    def __init__(self, bot):
+        # Load your API key from an environment variable or secret management service
+        openai.api_key = os.getenv("OPENAI_API_KEY")
+        self.__bot = bot
+
+    @commands.command(name="gpt")
+    async def get_openai_gpt_response(self, ctx, *args):
+        if len(args) == 0:
+            return
+
+        message = ' '.join(args).strip()
+        response = openai.ChatCompletion.create(model="gpt-3.5-turbo",
+                                                messages=[
+                                                    {"role": "system", "content": "You are a helpful assistant."},
+                                                    {"role": "user", "content": message}
+                                                ]
+                                                )
+        await ctx.send(response['choices'][0]['message']['content'])

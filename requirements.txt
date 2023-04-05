@@ -4,3 +4,4 @@ python-dotenv
 pyyaml
 requests
 spotipy
+openai
