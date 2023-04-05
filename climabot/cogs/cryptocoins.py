@@ -8,7 +8,7 @@ API_URL_BASE = 'https://api.blockchain.com/v3/exchange/'
 
 class CryptoCoins(commands.Cog):
 
-    @commands.command(name="precio")
+    @commands.command(name="precio", help="Muestra el precio de la criptomoneda seleccionada")
     async def get_crypto_price(self, ctx, *args):
 
         if len(args) != 2:

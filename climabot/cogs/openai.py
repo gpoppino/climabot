@@ -11,7 +11,7 @@ class OpenAIGPT(commands.Cog):
         openai.api_key = os.getenv("OPENAI_API_KEY")
         self.__bot = bot
 
-    @commands.command(name="gpt")
+    @commands.command(name="gpt", help="Generates text using OpenAI GPT-3.5 Turbo")
     async def get_openai_gpt_response(self, ctx, *args):
         if len(args) == 0:
             return
