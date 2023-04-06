@@ -1,7 +1,8 @@
-discord.py
+discord.py>=2
 pyowm>=3
 python-dotenv
 pyyaml
 requests
 spotipy
 openai
+matplotlib

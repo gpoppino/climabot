@@ -8,6 +8,7 @@ import sys, pathlib
 
 from matplotlib import pyplot as plt
 from pyowm.utils.config import get_config_from
+from climabot.conf import pyowm_bot_config
 from climabot.utils import botlanguage
 from discord.ext import commands
 from datetime import timezone
@@ -18,8 +19,7 @@ class Weather(commands.Cog):
 
     def __init__(self, bot):
         self.__bot = bot
-        config_dict = get_config_from(str(pathlib.Path.cwd()) + '/' + sys.argv[0] + '/climabot/conf/pyowm.conf')
-        self.__owm = pyowm.OWM(os.getenv('OPENWEATHER_KEY'), config_dict)
+        self.__owm = pyowm.OWM(os.getenv('OPENWEATHER_KEY'), pyowm_bot_config.WEATHER_DEFAULT_CONFIG)
         self.__jsonFilename = "weather_users.json"
 
         botlanguage.addListener(self)
