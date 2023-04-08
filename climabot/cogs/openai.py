@@ -17,10 +17,11 @@ class OpenAIGPT(commands.Cog):
             return
 
         message = ' '.join(args).strip()
-        response = openai.ChatCompletion.create(model="gpt-3.5-turbo",
-                                                messages=[
-                                                    {"role": "system", "content": "You are a helpful assistant."},
-                                                    {"role": "user", "content": message}
-                                                ]
-                                                )
+        async with ctx.typing():
+            response = openai.ChatCompletion.create(model="gpt-3.5-turbo",
+                                                    messages=[
+                                                        {"role": "system", "content": "You are a helpful assistant."},
+                                                        {"role": "user", "content": message}
+                                                    ]
+                                                    )
         await ctx.send(response['choices'][0]['message']['content'])
